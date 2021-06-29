@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.ReceiverCallNotAllowedException;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
 import com.codepath.apps.restclienttemplate.models.Tweeter;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
@@ -46,6 +48,7 @@ public class TimelineActivity extends AppCompatActivity {
         populateHomeTimeline();
     }
 
+
     private void populateHomeTimeline() {
         client.getHomeTimeline(new JsonHttpResponseHandler() {
             @Override
@@ -65,5 +68,11 @@ public class TimelineActivity extends AppCompatActivity {
             public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
                 Log.e(TAG, "onFailure", throwable);
             }
-        });}
+        });
+    }
+
+    public void onLogoutButton(View view) {
+        client.clearAccessToken();
+        finish();
+    }
 }
