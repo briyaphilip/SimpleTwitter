@@ -33,11 +33,16 @@ public class TimelineActivity extends AppCompatActivity {
     public static final String TAG = "TimelineActivity";
     private final int REQUEST_CODE = 20;
     private SwipeRefreshLayout swipeContainer;
+    // Store a member variable for the listener
+    private EndlessRecyclerViewScrollListener scrollListener;
 
     TwitterClient client;
     RecyclerView rvTweets;
     List<Tweeter> tweets;
     TweetsAdapter adapter;
+    Button composeBtn;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,14 +53,45 @@ public class TimelineActivity extends AppCompatActivity {
 
         // find the recycler view
         rvTweets = findViewById(R.id.rvTweets);
+
         // initialize the list of tweets and adpater
         tweets = new ArrayList<>();
         adapter = new TweetsAdapter(this, tweets);
+
         // recycle view setup: layout manager and adapter
-        rvTweets.setLayoutManager(new LinearLayoutManager(this));
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        rvTweets.setLayoutManager(linearLayoutManager);
         rvTweets.setAdapter(adapter);
 
         populateHomeTimeline();
+
+        scrollListener = new EndlessRecyclerViewScrollListener(linearLayoutManager) {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+                client.getMoreTweets(new JsonHttpResponseHandler() {
+                    @Override
+                    public void onSuccess(int statusCode, Headers headers, JSON json) {
+                        JSONArray jsonArray = json.jsonArray;
+                        try{
+                            List<Tweeter> tweeters = Tweeter.fromJsonArray(jsonArray);
+                            adapter.addAll(tweeters);
+                        }
+                        catch (JSONException e){
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
+                        Log.d(TAG, "onFailure: "+ response, throwable);
+
+                    }
+                }, tweets.get(tweets.size()-1).id);
+                }
+            };
+
+        rvTweets.addOnScrollListener(scrollListener);
+
 
         // Lookup the swipe container view
         swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
@@ -66,6 +102,7 @@ public class TimelineActivity extends AppCompatActivity {
                 // Your code to refresh the list here.
                 // Make sure you call swipeContainer.setRefreshing(false)
                 // once the network request has completed successfully.
+                swipeContainer.setRefreshing(false);
                 fetchTimelineAsync(0);
             }
         });
@@ -114,7 +151,7 @@ public class TimelineActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.compose){
+        if (item.getItemId() == R.id.composeBtn){
             Intent intent = new Intent(this, ComposeActivity.class);
             startActivityForResult(intent, REQUEST_CODE);
             return true;
@@ -163,4 +200,14 @@ public class TimelineActivity extends AppCompatActivity {
         client.clearAccessToken();
         finish();
     }
-}
+
+
+    public void Composebtn(View view) {
+        composeBtn = findViewById(R.id.composeBtn);
+        composeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(TimelineActivity.this, ComposeActivity.class));
+            }
+    });
+}}

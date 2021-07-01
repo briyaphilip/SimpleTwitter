@@ -12,5 +12,14 @@
     <style name="AppTheme" parent="AppBaseTheme">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
+    <style name="Divider">
+        <item name="android:background">@color/medium_gray_30</item> //you can give your color here. that will change all divider color in your app.
+    </style>
+
+    <style name="Divider.Horizontal" parent="Divider">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">.5dp</item>
+
+    </style>
 
 </resources>

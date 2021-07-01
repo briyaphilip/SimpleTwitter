@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -11,7 +12,11 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
 import com.codepath.apps.restclienttemplate.models.Tweeter;
+import com.google.android.material.shape.RoundedCornerTreatment;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -71,21 +76,60 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
         TextView tvBody;
         TextView tvScreenName;
         ImageView tvOptImg;
+        TextView userAt;
+        Button fav;
+        Button retweet;
 
-        public ViewHolder(@NonNull @NotNull View itemView) {
+        public ViewHolder(@NonNull @NotNull final View itemView) {
             super(itemView);
             ivProfileImage = itemView.findViewById(R.id.ivProfileImage);
             tvBody = itemView.findViewById(R.id.tvBody);
             tvScreenName = itemView.findViewById(R.id.tvScreenName);
             tvOptImg = itemView.findViewById(R.id.tvOptImg);
+            userAt = itemView.findViewById(R.id.userAt);
+            fav = itemView.findViewById(R.id.fav);
+            retweet = itemView.findViewById(R.id.retweet);
+
+
+            fav.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (fav.getBackground().getConstantState() == context.getResources().getDrawable(R.drawable.ic_vector_heart_stroke).getConstantState()){
+                        v.setBackgroundResource(R.drawable.ic_vector_heart);
+                    }
+                    else{
+                        v.setBackgroundResource(R.drawable.ic_vector_heart_stroke);
+                    }
+
+                }
+            });
+
+            retweet.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (retweet.getBackground().getConstantState() == context.getResources().getDrawable(R.drawable.ic_vector_retweet_stroke).getConstantState()){
+                        v.setBackgroundResource(R.drawable.ic_vector_retweet);
+                    }
+                    else{
+                        v.setBackgroundResource(R.drawable.ic_vector_retweet_stroke);
+                    }
+                }
+            });
+
         }
+
+
 
         public void bind(Tweeter tweeter) {
             tvBody.setText(tweeter.body);
             tvScreenName.setText(tweeter.user.screenName);
-            Glide.with(context).load(tweeter.user.profileImageUrl).into(ivProfileImage);
+            userAt.setText("@" + tweeter.user.username);
+            RequestOptions requestOptions = new RequestOptions();
+            requestOptions = requestOptions.transform(new CenterCrop(), new RoundedCorners(30));
+            //userAt.setText(tweeter.User.);
+            Glide.with(context).load(tweeter.user.profileImageUrl).circleCrop().into(ivProfileImage);
             if (tweeter.image != null){
-                Glide.with(context).load(tweeter.image).into(tvOptImg);
+                Glide.with(context).load(tweeter.image).apply(requestOptions).into(tvOptImg);
             }
             else{
                 tvOptImg.setVisibility(View.GONE);
