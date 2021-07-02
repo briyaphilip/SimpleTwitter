@@ -46,13 +46,13 @@ The following **additional** features are implemented:
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='https://media.giphy.com/media/siGEeW4Kt0zuTeWQe2/giphy.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
-GIF created with [Kap](https://getkap.co/).
+GIF created with [LICECap](https://licecap.en.softonic.com/).
 
 ## Notes
 
-Describe any challenges encountered while building the app.
+I had trouble implementing the endless scroll
 
 ## Open-source libraries used
 
