@@ -18,18 +18,7 @@
         android:text="Logout"
         android:onClick="onLogoutButton"></Button>
 
-    <Button
-        android:id="@+id/composeBtn"
-        android:layout_width="50dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="340dp"
-        android:layout_marginBottom="5dp"
-        android:title="Compose"
-        android:onClick="Composebtn"
-        android:background="@drawable/vector_compose_shortcut"
-         />
+
 
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -38,15 +27,12 @@
         android:layout_height="match_parent"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        tools:context=".TimelineActivity">
+        tools:context=".TimelineActivity"/>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvTweets"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="0dp"
-            android:layout_marginTop="0dp" />
-
-
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvTweets"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="0dp" />
 </RelativeLayout>

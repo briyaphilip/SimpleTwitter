@@ -40,7 +40,6 @@ public class TimelineActivity extends AppCompatActivity {
     RecyclerView rvTweets;
     List<Tweeter> tweets;
     TweetsAdapter adapter;
-    Button composeBtn;
 
 
 
@@ -151,7 +150,7 @@ public class TimelineActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.composeBtn){
+        if (item.getItemId() == R.id.compose){
             Intent intent = new Intent(this, ComposeActivity.class);
             startActivityForResult(intent, REQUEST_CODE);
             return true;
@@ -201,13 +200,4 @@ public class TimelineActivity extends AppCompatActivity {
         finish();
     }
 
-
-    public void Composebtn(View view) {
-        composeBtn = findViewById(R.id.composeBtn);
-        composeBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(TimelineActivity.this, ComposeActivity.class));
-            }
-    });
-}}
+}
