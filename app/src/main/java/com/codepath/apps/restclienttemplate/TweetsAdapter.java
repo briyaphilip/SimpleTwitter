@@ -80,6 +80,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
         Button fav;
         Button retweet;
 
+
         public ViewHolder(@NonNull @NotNull final View itemView) {
             super(itemView);
             ivProfileImage = itemView.findViewById(R.id.ivProfileImage);
@@ -89,6 +90,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             userAt = itemView.findViewById(R.id.userAt);
             fav = itemView.findViewById(R.id.fav);
             retweet = itemView.findViewById(R.id.retweet);
+
 
 
             fav.setOnClickListener(new View.OnClickListener() {
@@ -124,6 +126,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             tvBody.setText(tweeter.body);
             tvScreenName.setText(tweeter.user.screenName);
             userAt.setText("@" + tweeter.user.username);
+
             RequestOptions requestOptions = new RequestOptions();
             requestOptions = requestOptions.transform(new CenterCrop(), new RoundedCorners(30));
             //userAt.setText(tweeter.User.);
