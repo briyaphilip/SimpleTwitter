@@ -1,6 +1,8 @@
 package com.codepath.apps.restclienttemplate;
 
 import android.content.Context;
+import android.net.ParseException;
+import android.text.format.DateUtils;
 
 import com.codepath.asynchttpclient.RequestParams;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
@@ -8,6 +10,9 @@ import com.codepath.oauth.OAuthBaseClient;
 import com.github.scribejava.apis.FlickrApi;
 import com.github.scribejava.apis.TwitterApi;
 import com.github.scribejava.core.builder.api.BaseApi;
+
+import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 /*
  * 
@@ -69,6 +74,8 @@ public class TwitterClient extends OAuthBaseClient {
 		params.put("max_id", max_id);
 		client.get(apiUrl, params, handler);
 	}
+
+
 
 	/* 1. Define the endpoint URL with getApiUrl and pass a relative path to the endpoint
 	 * 	  i.e getApiUrl("statuses/home_timeline.json");

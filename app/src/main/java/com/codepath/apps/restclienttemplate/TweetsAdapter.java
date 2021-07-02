@@ -79,6 +79,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
         TextView userAt;
         Button fav;
         Button retweet;
+        TextView timestamp;
 
 
         public ViewHolder(@NonNull @NotNull final View itemView) {
@@ -90,6 +91,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             userAt = itemView.findViewById(R.id.userAt);
             fav = itemView.findViewById(R.id.fav);
             retweet = itemView.findViewById(R.id.retweet);
+            timestamp = itemView.findViewById(R.id.timestamp);
 
 
 
@@ -126,6 +128,8 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             tvBody.setText(tweeter.body);
             tvScreenName.setText(tweeter.user.screenName);
             userAt.setText("@" + tweeter.user.username);
+            timestamp.setText(tweeter.getRelativeTimeAgo(tweeter.createdAt));
+
 
             RequestOptions requestOptions = new RequestOptions();
             requestOptions = requestOptions.transform(new CenterCrop(), new RoundedCorners(30));
